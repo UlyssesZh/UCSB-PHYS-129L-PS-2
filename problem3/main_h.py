@@ -50,7 +50,7 @@ plt.show()
 
 # b
 def surface(x, y):
-	return x**2+y**2
+	return x**2+x*y+y**2
 
 colors = []
 for triangle in triangles:
@@ -65,9 +65,9 @@ plt.ylabel('$y$')
 plt.show()
 
 # c
-# g_xx = 1 + 4 x^2
-# g_yy = 1 + 4 y^2
-# g_xy = g_yx = 4 x y
+# g_xx = 1 + (2 x + y)^2
+# g_yy = 1 + (x + 2 y)^2
+# g_xy = g_yx = (2 x + y) (x + 2 y)
 
 # d
 def triangle_normal(p1, p2, p3):
@@ -100,11 +100,11 @@ plt.show()
 # f
 x = points3d[:, 0]
 y = points3d[:, 1]
-partial_x = array([full_like(x, 1), full_like(x, 0), 2*x]).T
-partial_y = array([full_like(y, 0), full_like(y, 1), 2*y]).T
+partial_x = array([full_like(x, 1), full_like(x, 0), 2*x+y]).T
+partial_y = array([full_like(y, 0), full_like(y, 1), 2*y+x]).T
 partial_xx = array([full_like(x, 0), full_like(x, 0), full_like(x, 2)]).T
 partial_yy = array([full_like(y, 0), full_like(y, 0), full_like(y, 2)]).T
-partial_xy = array([full_like(x, 0), full_like(x, 0), full_like(x, 0)]).T
+partial_xy = array([full_like(x, 0), full_like(x, 0), full_like(x, 1)]).T
 ii_xx = (partial_xx*vertex_normals).sum(axis=1)
 ii_yy = (partial_yy*vertex_normals).sum(axis=1)
 ii_xy = (partial_xy*vertex_normals).sum(axis=1)
